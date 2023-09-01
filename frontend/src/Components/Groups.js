@@ -41,7 +41,7 @@ function Groups() {
             </div>
             <div className={"sb-search " + (lightTheme ? " " : "dark")}>
                 <IconButton>
-                    <SearchIcon />
+                    <SearchIcon className={"icon " + (lightTheme ? "" : "dark")} />
                 </IconButton>
                 <input type="text" className={"searchBox " + (lightTheme ? " " : "dark")} placeholder='Search' />
             </div>

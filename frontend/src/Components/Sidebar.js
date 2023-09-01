@@ -70,10 +70,11 @@ function Sidebar() {
 
             </div>
             <div className={"sb-search " + (lightTheme ? " " : "dark")}>
-                <IconButton>
-                    <SearchIcon />
-                </IconButton>
                 <input type="text" className={"searchBox " + (lightTheme ? " " : "dark")} placeholder='Search' />
+
+                <IconButton>
+                    <SearchIcon className={"icon " + (lightTheme ? "" : "dark")} />
+                </IconButton>
             </div>
             <div className={"sb-conversations " + (lightTheme ? " " : "dark")}>
                 {conversations.map((conversation) => {
