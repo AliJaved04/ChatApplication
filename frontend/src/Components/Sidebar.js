@@ -41,40 +41,39 @@ function Sidebar() {
     return (
         <div className='sidebar'>
             <div className={"sb-header " + (lightTheme ? " " : "dark")}  >
-                <div>
-                    <IconButton>
-                        <AccountCircleIcon className={"icon " + (lightTheme ? " " : "dark")} />
-                    </IconButton>
-                </div>
-                <div>
-                    <IconButton onClick={() => {
-                        navigate("users")
-                    }}>
-                        <PersonAddIcon className={"icon " + (lightTheme ? " " : "dark")} />
-                    </IconButton>
-                    <IconButton onClick={() => {
-                        navigate("groups")
-                    }}>
-                        <GroupAddIcon className={"icon " + (lightTheme ? " " : "dark")} />
-                    </IconButton>
-                    <IconButton onClick={() => {
-                        navigate("createGroup")
-                    }}>
-                        <AddCircleIcon className={"icon " + (lightTheme ? " " : "dark")} />
-                    </IconButton>
-                    <IconButton onClick={() => { dispatch(toggleTheme()) }} >
-                        {lightTheme && <NightlightIcon className={"icon " + (lightTheme ? " " : "dark")} />}
-                        {!lightTheme && <LightModeIcon className={"icon " + (lightTheme ? " " : "dark")} />}
-                    </IconButton>
-                </div>
+                <IconButton>
+                    <AccountCircleIcon className={"icon " + (lightTheme ? " " : "dark")} />
+                </IconButton>
+
+                <IconButton onClick={() => {
+                    navigate("users")
+                }}>
+                    <PersonAddIcon className={"icon " + (lightTheme ? " " : "dark")} />
+                </IconButton>
+                <IconButton onClick={() => {
+                    navigate("groups")
+                }}>
+                    <GroupAddIcon className={"icon " + (lightTheme ? " " : "dark")} />
+                </IconButton>
+                <IconButton onClick={() => {
+                    navigate("createGroup")
+                }}>
+                    <AddCircleIcon className={"icon " + (lightTheme ? " " : "dark")} />
+                </IconButton>
+                <IconButton onClick={() => { dispatch(toggleTheme()) }} >
+                    {lightTheme && <NightlightIcon className={"icon " + (lightTheme ? " " : "dark")} />}
+                    {!lightTheme && <LightModeIcon className={"icon " + (lightTheme ? " " : "dark")} />}
+                </IconButton>
+
 
             </div>
             <div className={"sb-search " + (lightTheme ? " " : "dark")}>
-                <input type="text" className={"searchBox " + (lightTheme ? " " : "dark")} placeholder='Search' />
 
                 <IconButton>
                     <SearchIcon className={"icon " + (lightTheme ? "" : "dark")} />
                 </IconButton>
+                <input type="text" className={"searchBox " + (lightTheme ? " " : "dark")} placeholder='Search' />
+
             </div>
             <div className={"sb-conversations " + (lightTheme ? " " : "dark")}>
                 {conversations.map((conversation) => {
