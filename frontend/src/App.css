@@ -3,6 +3,11 @@
   margin: 0;
 }
 
+.msg 
+{
+  font-size: 1.20rem !important;
+}
+
 .icon 
 {
   width: 1.25em !important;
@@ -419,11 +424,12 @@ background-color: white;
 
 
 
+
 .form
 {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 20px;
   
 }
 
