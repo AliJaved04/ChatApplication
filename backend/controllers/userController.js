@@ -3,16 +3,40 @@ const expressAsyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 const generateToken = require('../config/generateToken')
 const loginController = expressAsyncHandler(async (req, res) => {
+    console.log(req.body)
     const { name, password } = req.body;
-    const user = user.findOne({ user });
+    const user = await User.findOne({ name });
+    if (user) {
+        res.json(
+            {
+                _id: user._id,
+                name: user.name,
+                password: user.password,
+                email: user.email,
+                isAdmin: user.isAdmin
+            }
+        )
+    }
+    // console.log(user)
+    // if (user) {
+    //     res.json(
+    //         {
+    //             _id: user._id,
+    //             name: user.name,
+    //             password: user.password,
+    //             email: user.email,
+    //             isAdmin: user.isAdmin
+    //         }
+    //     )
+    // }
 
 })
 
 const registerController = expressAsyncHandler(
+
     async (req, res) => {
 
         const { name, email, password } = req.body;
-
         if (!name || !email || !password) {
             res.send(400)
             throw Error("All necessary input fields have not been filled")
@@ -34,7 +58,8 @@ const registerController = expressAsyncHandler(
                 {
                     _id: user._id,
                     name: user.name,
-                    emial: user.email,
+                    email: user.email,
+                    password: user.password,
                     isAdmin: user.isAdmin,
                     token: generateToken(user._id)
                 }
@@ -47,7 +72,6 @@ const registerController = expressAsyncHandler(
             throw new Error("Registration Unssuccefful");
         }
     }
-
 )
 
 
