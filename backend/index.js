@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/userRoutes')
+const cors = require("cors")
 const app = express()
 dotenv.config()
 
@@ -12,7 +13,7 @@ const connectDb = async () => {
     console.log("Db is connected")
 }
 app.use(express.json())
-
+app.use(cors())
 connectDb()
 
 app.listen(PORT, () => {

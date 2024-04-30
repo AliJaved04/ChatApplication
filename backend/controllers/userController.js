@@ -3,35 +3,42 @@ const expressAsyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 const generateToken = require('../config/generateToken')
 const loginController = expressAsyncHandler(async (req, res) => {
-    console.log(req.body)
     const { name, password } = req.body;
     const user = await User.findOne({ name });
     if (user) {
-        res.json(
-            {
-                _id: user._id,
-                name: user.name,
-                password: user.password,
-                email: user.email,
-                isAdmin: user.isAdmin
-            }
-        )
+        if (await user.matchPassword(password)) {
+            res.json(
+                {
+                    token: generateToken(user._id)
+                }
+            )
+        }
+        else {
+            res.status(401);
+            throw new Error("Username or password is incorrect")
+        }
     }
-    // console.log(user)
-    // if (user) {
-    //     res.json(
-    //         {
-    //             _id: user._id,
-    //             name: user.name,
-    //             password: user.password,
-    //             email: user.email,
-    //             isAdmin: user.isAdmin
-    //         }
-    //     )
-    // }
-
+    else {
+        res.status(401);
+        throw new Error("Username or password is incorrect")
+    }
 })
 
+
+const fetchAllUsers = expressAsyncHandler(async (req, res) => {
+    const keyword = req.query.search ?
+        {
+            $or:
+                [
+                    { name: { $regex: req.query.search, $options: i } },
+                    { email: { $regex: req.query.search, $options: i } },
+                ]
+        } : {}
+    const users = await User.find(keyword).find({
+        _id: { $ne: req.user._id }
+    });
+    res.send(users);
+})
 const registerController = expressAsyncHandler(
 
     async (req, res) => {
@@ -68,12 +75,9 @@ const registerController = expressAsyncHandler(
         }
 
         else {
-            res.status(400)
+            res.status(500)
             throw new Error("Registration Unssuccefful");
         }
     }
 )
-
-
-
-module.exports = { loginController, registerController };
+module.exports = { loginController, registerController, fetchAllUsers };
